@@ -73,7 +73,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>OnlyNeons</Logo>
+          <Logo>ShopMania</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
