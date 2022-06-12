@@ -2,14 +2,14 @@ export const sliderItems = [
     {
       id: 1,
       img: "https://www.nicepng.com/png/full/8-88585_women-fashion-png-example-of-magazine-cover.png",
-      title: "SUMMER SALE",
+      title: "AUTUMN COLLECTION",
       description: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "f5fafd",
     },
     {
       id: 2,
       img: "https://i.ibb.co/DG69bQ4/2.png",
-      title: "AUTUMN COLLECTION",
+      title: "SUMMER SALE",
       description: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
       bg: "fcf1ed",
     },
@@ -26,17 +26,20 @@ export const sliderItems = [
     {
       id: 1,
       img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
+      title: "QUEEN'S STYLE!",
+      category: "women"
     },
     {
       id: 2,
-      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "LOUNGEWEAR LOVE",
+      img: "https://burst.shopifycdn.com/photos/man-poses-in-light-colored-overcoat.jpg?width=925&format=pjpg&exif=1&iptc=1",
+      title: "MEN'S FASHION",
+      category: "men"
     },
     {
       id: 3,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
+      img: "https://burst.shopifycdn.com/photos/new-shoes.jpg?width=925&format=pjpg&exif=1&iptc=1",
+      title: "NEW SHOES",
+      category: "shoes"
     },
   ];
 

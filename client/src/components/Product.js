@@ -2,6 +2,9 @@ import styled from "styled-components"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import {Link} from "react-router-dom"
+import {addProduct} from "../redux/cartRedux";
+import {useDispatch} from "react-redux";
 
 const Info = styled.div`
   opacity: 0;
@@ -64,16 +67,27 @@ const Icon = styled.div`
 `;
 
 const Product = ({item }) => {
+  const product = item;
+  const quantity = 1;
+  const color = product.color[0];
+  const size = product.size[0];
+  const dispatch = useDispatch()
+  const addToChart = () => {
+    dispatch(addProduct({...product, quantity, color, size }))
+};
+  console.log(item)
   return (
     <Container>
         <Circle />
-        <Image src={item.img}/>
+        <Image src={item.image}/>
         <Info>
-            <Icon>
+            <Icon onClick={addToChart}>
                 <ShoppingCartOutlinedIcon />
             </Icon>
             <Icon>
+            <Link to={`/product/${item._id}`}>
                 <SearchOutlinedIcon />
+              </Link>
             </Icon>
             <Icon>
                 <FavoriteBorderOutlinedIcon />
