@@ -25,9 +25,9 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -35,9 +35,9 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
-    res.status(200).json("User has been deleted...");
+    return res.status(200).json("User has been deleted...");
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -46,9 +46,9 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
-    res.status(200).json(others);
+    return res.status(200).json(others);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -59,9 +59,9 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     const users = query
       ? await User.find().sort({ _id: -1 }).limit(5)
       : await User.find();
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -86,9 +86,9 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
         },
       },
     ]);
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 

@@ -5,13 +5,13 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
-import { useNavigate } from 'react-router-dom';
-import {emptyCart} from "../redux/cartRedux";
-import {useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { emptyCart } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   width: 100%;
@@ -143,19 +143,23 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
   cursor: pointer;
+  &:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
 `;
 
 const Cart = () => {
-
   const KEY = process.env.REACT_APP_STRIPE;
-  const cart = useSelector(state=>state.cart);
+  const cart = useSelector((state) => state.cart);
   console.log(cart);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
   const onToken = (token) => {
     setStripeToken(token);
+    console.log(stripeToken);
   };
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -164,20 +168,19 @@ const Cart = () => {
           tokenId: stripeToken.id,
           amount: 500,
         });
-        
-        navigate("/success", {state: {data: res.data}});
-        
+
+        navigate("/success", { state: { data: res.data } });
       } catch {}
     };
-    stripeToken && makeRequest();
-   
-  }, [stripeToken, cart.total, navigate]);
+    if (stripeToken && cart.products.length > 0) {
+      makeRequest();
+    }
+  }, [stripeToken, cart, navigate]);
   console.log(stripeToken);
 
-const empty = () => {
+  const empty = () => {
     dispatch(emptyCart({}));
-};
-
+  };
 
   return (
     <Container>
@@ -192,39 +195,48 @@ const empty = () => {
             <TopText>Shopping Bag ({cart.products.length})</TopText>
             <TopText>Your Wishlist</TopText>
           </TopTexts>
-          <TopButton type="filled" onClick={empty}>CLEAR CART</TopButton>
+          <TopButton type="filled" onClick={empty}>
+            CLEAR CART
+          </TopButton>
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map(product => (<Product>
-              <ProductDetail>
-              <Link to={`/product/${product._id}`} >
-                <Image src={product.image} />
-                </Link>
-                <Details>
-                <Link to={`/product/${product._id}`} style={{textDecoration: "none"}}>
-                  <ProductName>
-                    <b>Product:</b> {product.title}
-                  </ProductName>
+            {cart.products.map((product) => (
+              <Product key={product._id}>
+                <ProductDetail>
+                  <Link to={`/product/${product._id}`}>
+                    <Image src={product.image} />
                   </Link>
-                  <ProductId>
-                    <b>ID:</b> {product._id}
-                  </ProductId>
-                  <ProductColor color={product.color} />
-                  <ProductSize>
-                    <b>Size:</b> {product.size}
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon style={{ cursor: "pointer" }} />
-                  <ProductAmount>{product.quantity}</ProductAmount>
-                  <RemoveIcon style={{ cursor: "pointer" }} />
-                </ProductAmountContainer>
-                <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
-              </PriceDetail>
-            </Product>))}
+                  <Details>
+                    <Link
+                      to={`/product/${product._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ProductName>
+                        <b>Product:</b> {product.title}
+                      </ProductName>
+                    </Link>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <AddIcon style={{ cursor: "pointer" }} />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <RemoveIcon style={{ cursor: "pointer" }} />
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    $ {product.price * product.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
             <Hr />
           </Info>
           <Summary>
@@ -255,7 +267,9 @@ const empty = () => {
               token={onToken}
               stripeKey={KEY}
             >
-              <Button>CHECKOUT NOW</Button>
+              <Button disabled={cart.products.length === 0}>
+                CHECKOUT NOW
+              </Button>
             </StripeCheckout>
           </Summary>
         </Bottom>
