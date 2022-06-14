@@ -5,6 +5,39 @@ import { userRequest } from "../requestMethods";
 import { Link } from "react-router-dom";
 import { emptyCart } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+
+const Container = styled.div`
+  font-size: 22px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`;
+const Button = styled.button`
+  padding: 10px;
+  margin-top: 20px;
+  background-color: teal;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
 
 const Success = () => {
   const location = useLocation();
@@ -32,7 +65,6 @@ const Success = () => {
         });
         console.log(res);
         setOrderId(res.data._id);
-        dispatch(emptyCart({}));
       } catch (err) {
         console.log(err);
       }
@@ -43,22 +75,15 @@ const Success = () => {
   }, [cart, data, currentUser, dispatch]);
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <Container>
+      <DoneOutlineIcon style={{ color: "teal", fontSize: "48px" }} />
       {orderId
-        ? `Order has been created successfully. Your order number is ${orderId}`
+        ? `Order has been created successfully. Your order number is: ${orderId}`
         : `Successfull. Your order is being prepared...`}
       <Link to="/">
-        <button style={{ padding: 10, marginTop: 20 }}>Go to Homepage</button>
+        <Button>GO TO HOMEPAGE</Button>
       </Link>
-    </div>
+    </Container>
   );
 };
 

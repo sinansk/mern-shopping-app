@@ -52,7 +52,7 @@ const Products = ({ category, filters, sort }) => {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
-    } else {
+    } else if (sort === "desc") {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => b.price - a.price)
       );

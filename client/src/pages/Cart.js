@@ -153,6 +153,7 @@ const Cart = () => {
   const KEY = process.env.REACT_APP_STRIPE;
   const cart = useSelector((state) => state.cart);
   console.log(cart);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
   const onToken = (token) => {
@@ -243,19 +244,23 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.subtotal}</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
+            <SummaryItem
+              style={{ textDecoration: cart.total > 50 && "line-through" }}
+            >
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.shipping} </SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
+            <SummaryItem
+              style={{ textDecoration: cart.total < 50 && "line-through" }}
+            >
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemPrice>$ -{cart.shipping}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total} </SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
               name="ShopMania"
@@ -267,8 +272,8 @@ const Cart = () => {
               token={onToken}
               stripeKey={KEY}
             >
-              <Button disabled={cart.products.length === 0}>
-                CHECKOUT NOW
+              <Button disabled={cart.products.length === 0 || !currentUser}>
+                {!currentUser ? "YOU MUST LOGIN FIRST!" : "CHECKOUT NOW"}
               </Button>
             </StripeCheckout>
           </Summary>

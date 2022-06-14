@@ -4,8 +4,8 @@ import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
-import {useParams} from "react-router-dom";
-import {useState } from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled.div``;
 const Title = styled.h1`
@@ -33,26 +33,25 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
+  const { category } = useParams();
+  console.log(category);
 
-const { category } = useParams();
-console.log(category);
+  const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState("");
 
-const [filters, setFilters] = useState({});
-const [sort, setSort] = useState("newest");
-
-const handleFilters = (e) => {  
+  const handleFilters = (e) => {
     const value = e.target.value;
-    if(value !== "-") {
-    setFilters({
+    if (value !== "-") {
+      setFilters({
         ...filters,
         [e.target.name]: value,
-    });
-  } else {
-    setFilters({});
-  }
-}
+      });
+    } else {
+      setFilters({});
+    }
+  };
 
-console.log(filters)
+  console.log(filters);
   return (
     <Container>
       <Navbar />
@@ -60,7 +59,7 @@ console.log(filters)
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products</FilterText>
-          <Select name="color" onChange={handleFilters} >
+          <Select name="color" onChange={handleFilters}>
             <Option disabled selected>
               Color
             </Option>
@@ -103,18 +102,20 @@ console.log(filters)
         </Filter>
         <Filter>
           <FilterText>Sort Products</FilterText>
-          <Select onChange={e=>setSort(e.target.value)}>
-            <Option value="newest">Newest</Option>
+          <Select onChange={(e) => setSort(e.target.value)}>
+            <Option value="newest" selected>
+              Newest
+            </Option>
             <Option value="asc">Price (asc)</Option>
             <Option value="desc">Price (desc)</Option>
           </Select>
         </Filter>
       </FilterContainer>
-      <Products category={category} filters={filters} sort={sort}/>
+      <Products category={category} filters={filters} sort={sort} />
       <Newsletter />
       <Footer />
     </Container>
   );
-}
+};
 
 export default ProductList;
