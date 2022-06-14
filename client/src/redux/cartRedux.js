@@ -15,11 +15,9 @@ const cartSlice = createSlice({
       state.products.push(action.payload);
       state.subtotal += action.payload.price * action.payload.quantity;
       state.total += state.subtotal;
-      if (state.total < 50) {
-        state.total += state.shipping;
-      } else if (state.total >= 50) {
-        state.total = state.subtotal;
-      }
+      state.total < 50
+        ? (state.total += state.shipping)
+        : (state.total = state.subtotal);
     },
     emptyCart: (state) => {
       state.quantity = 0;
