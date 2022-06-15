@@ -58,7 +58,7 @@ const cartSlice = createSlice({
         console.log(state.products);
       }
       if (state.subtotal > 0 && state.subtotal < 50) {
-        state.total += state.shipping;
+        state.total = state.shipping + state.subtotal;
       } else {
         state.total = state.subtotal;
       }
@@ -77,7 +77,7 @@ const cartSlice = createSlice({
         state.total += action.payload.price * 1;
       }
       if (state.subtotal > 0 && state.subtotal < 50) {
-        state.total += state.shipping;
+        state.total = state.shipping + state.subtotal;
       } else {
         state.total = state.subtotal;
       }
