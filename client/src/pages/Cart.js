@@ -11,7 +11,7 @@ import StripeCheckout from "react-stripe-checkout";
 import React, { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
-import { emptyCart, decreaseCart } from "../redux/cartRedux";
+import { emptyCart, decreaseCart, increaseCart } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
 const Container = styled.div`
@@ -189,6 +189,10 @@ const Cart = () => {
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
   };
+
+  const handleIncreaseCart = (product) => {
+    dispatch(increaseCart(product));
+  };
   return (
     <Container>
       <Navbar />
@@ -209,7 +213,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map((product) => (
-              <Product key={product._id}>
+              <Product>
                 <ProductDetail>
                   <Link to={`/product/${product._id}`}>
                     <Image src={product.image} />
@@ -234,7 +238,10 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <AddIcon style={{ cursor: "pointer" }} />
+                    <AddIcon
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleIncreaseCart(product)}
+                    />
                     <ProductAmount>{product.quantity}</ProductAmount>
                     {product.quantity === 1 ? (
                       <DeleteIcon

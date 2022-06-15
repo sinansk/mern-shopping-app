@@ -11,8 +11,20 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      state.quantity += 1;
-      state.products.push(action.payload);
+      console.log(action.payload._id);
+      const itemIndex = state.products.findIndex(
+        (product) => product._id === action.payload._id
+      );
+      if (itemIndex >= 0) {
+        state.products[itemIndex] = {
+          ...state.products[itemIndex],
+          quantity: state.products[itemIndex].quantity + 1,
+        };
+      } else {
+        state.quantity += 1;
+        state.products.push(action.payload);
+      }
+
       state.subtotal += action.payload.price * action.payload.quantity;
       state.total += state.subtotal;
       state.total < 50
@@ -51,8 +63,28 @@ const cartSlice = createSlice({
         state.total = state.subtotal;
       }
     },
+
+    increaseCart: (state, action) => {
+      const itemIndex = state.products.findIndex(
+        (product) => product._id === action.payload._id
+      );
+      if (state.products[itemIndex].quantity >= 1) {
+        state.products[itemIndex] = {
+          ...state.products[itemIndex],
+          quantity: state.products[itemIndex].quantity + 1,
+        };
+        state.subtotal += action.payload.price * 1;
+        state.total += action.payload.price * 1;
+      }
+      if (state.subtotal > 0 && state.subtotal < 50) {
+        state.total += state.shipping;
+      } else {
+        state.total = state.subtotal;
+      }
+    },
   },
 });
-
-export const { addProduct, emptyCart, decreaseCart } = cartSlice.actions;
+///REFACTORING YAP VE SWITCH CASE DURUMUNA AYIR///
+export const { addProduct, emptyCart, decreaseCart, increaseCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;
