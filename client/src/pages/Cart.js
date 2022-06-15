@@ -3,14 +3,15 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
-import { emptyCart } from "../redux/cartRedux";
+import { emptyCart, decreaseCart } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
 const Container = styled.div`
@@ -99,7 +100,9 @@ const PriceDetail = styled.span`
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
+  text-align: center;
 `;
 const ProductAmount = styled.div`
   font-size: 24px;
@@ -183,6 +186,9 @@ const Cart = () => {
     dispatch(emptyCart({}));
   };
 
+  const handleDecreaseCart = (product) => {
+    dispatch(decreaseCart(product));
+  };
   return (
     <Container>
       <Navbar />
@@ -230,7 +236,17 @@ const Cart = () => {
                   <ProductAmountContainer>
                     <AddIcon style={{ cursor: "pointer" }} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <RemoveIcon style={{ cursor: "pointer" }} />
+                    {product.quantity === 1 ? (
+                      <DeleteIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleDecreaseCart(product)}
+                      />
+                    ) : (
+                      <RemoveIcon
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleDecreaseCart(product)}
+                      />
+                    )}
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
