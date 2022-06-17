@@ -4,20 +4,19 @@ import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
-import {useDispatch} from "react-redux";
-import {logoutSuccess} from "../redux/userRedux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logoutSuccess } from "../redux/userRedux";
 
 const Container = styled.div`
-  
   width: "100vw";
   ${mobile({ height: "50px" })}
   position: sticky;
-    top:0;
-    left:0;
-    right:0;
-    z-index:10;
-    background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: white;
 `;
 const Wrapper = styled.div`
   padding: 10px 20px;
@@ -71,72 +70,72 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 const Announcement = styled.div`
-    height: 30px;
-    width: "100vw";
-    background-color: teal;
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 500;
-    z-index:10;
-    ${mobile({ fontSize: "10px", height: "20px" })}
-`
+  height: 30px;
+  width: "100vw";
+  background-color: teal;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10;
+  ${mobile({ fontSize: "10px", height: "20px" })}
+`;
 
 const Navbar = () => {
-  const user = useSelector(state=>state.user.currentUser);
+  const user = useSelector((state) => state.user.currentUser);
   console.log(user);
-  const  quantity = useSelector(state => state.cart.quantity);
-  console.log(quantity)
+  const quantity = useSelector((state) => state.cart.quantity);
+  console.log(quantity);
   // const {currentUser} = useSelector((state) => state.user);
   // console.log(currentUser)
   const dispatch = useDispatch();
-
 
   const logOut = (e) => {
     if (user) {
       e.preventDefault();
       dispatch(logoutSuccess());
     } else {
-      return
+      return;
     }
-  }; 
-
+  };
 
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
+          {/* <Language>EN</Language>
           <SearchContainer>
             <Input placeholder="Search" />
             <SearchIcon style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+          </SearchContainer> */}
         </Left>
         <Center>
-        <Link to="/" style={{textDecoration: "none"}}>
-          <Logo >ShopMania</Logo>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Logo>ShopMania</Logo>
           </Link>
         </Center>
         <Right>
-          <Link to={user ? "/"  : "/register"}>
+          <Link to={user ? "/" : "/register"}>
             <MenuItem>{user ? user.username : "REGISTER"}</MenuItem>
           </Link>
-          <Link to={user ? "/"  : "/login"}>
-            <MenuItem>{user ?  <MenuItem onClick={logOut}>LOG OUT</MenuItem>: `SIGN IN`}</MenuItem>
+          <Link to={user ? "/" : "/login"}>
+            <MenuItem>
+              {user ? <MenuItem onClick={logOut}>LOG OUT</MenuItem> : `SIGN IN`}
+            </MenuItem>
           </Link>
           <MenuItem>
-          <Link to="/cart">
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlinedIcon color="action" />
-            </Badge>
+            <Link to="/cart">
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlinedIcon color="action" />
+              </Badge>
             </Link>
           </MenuItem>
         </Right>
       </Wrapper>
-      <Announcement >Super Deal ! Free Shipping on Orders Over $50</Announcement>
+      <Announcement>Super Deal ! Free Shipping on Orders Over $50</Announcement>
     </Container>
   );
 };

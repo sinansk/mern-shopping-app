@@ -204,7 +204,7 @@ const Cart = () => {
           </Link>
           <TopTexts>
             <TopText>Shopping Bag ({cart.products.length})</TopText>
-            <TopText>Your Wishlist</TopText>
+            {/* <TopText>Your Wishlist</TopText> */}
           </TopTexts>
           <TopButton type="filled" onClick={empty}>
             CLEAR CART

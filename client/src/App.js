@@ -14,8 +14,11 @@ import {
 import { useSelector } from "react-redux";
 
 const App = () => {
-  const user = useSelector((state) => state.user.currentUser);
-  console.log(user);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  console.log(currentUser);
+
+  const TOKEN = currentUser?.accessToken;
+  console.log(TOKEN);
 
   return (
     <Router>
@@ -27,9 +30,12 @@ const App = () => {
         <Route path="/success" element={<Success />} />
         <Route
           path="/register"
-          element={user ? <Navigate to="/" /> : <Register />}
+          element={currentUser ? <Navigate to="/" /> : <Register />}
         />
-        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="/login"
+          element={currentUser ? <Navigate to="/" /> : <Login />}
+        />
       </Routes>
     </Router>
   );

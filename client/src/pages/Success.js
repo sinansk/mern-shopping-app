@@ -47,7 +47,6 @@ const Success = () => {
   const cart = useSelector((state) => state.cart);
   console.log(cart);
   const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(currentUser);
   const [orderId, setOrderId] = useState(null);
   const dispatch = useDispatch();
 
