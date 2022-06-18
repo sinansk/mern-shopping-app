@@ -13,6 +13,7 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
+  text-align: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -46,7 +47,10 @@ const Success = () => {
   console.log(data);
   const cart = useSelector((state) => state.cart);
   console.log(cart);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user);
+  console.log(currentUser);
+  const userId = useSelector((state) => state.user.currentUser._id);
+  console.log(userId);
   const [orderId, setOrderId] = useState(null);
   const dispatch = useDispatch();
 
@@ -54,7 +58,7 @@ const Success = () => {
     const createOrder = async () => {
       try {
         const res = await userRequest.post("/orders", {
-          userId: currentUser._id,
+          userId: userId,
           products: cart.products.map((item) => ({
             productId: item._id,
             quantity: item.quantity,
@@ -68,8 +72,10 @@ const Success = () => {
         console.log(err);
       }
     };
-    if (data && cart.products.length > 0) {
+    if (data) {
       createOrder();
+    } else {
+      console.log("no data");
     }
   }, [cart, data, currentUser, dispatch]);
 

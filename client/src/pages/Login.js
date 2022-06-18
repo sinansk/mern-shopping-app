@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useState } from "react";
 import { login } from "../redux/apiCalls";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100vw;
@@ -64,16 +63,15 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+  const { isFetching, error } = useSelector((state) => state.user);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { isFetching, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleLogin = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
   };
-
   return (
     <Container>
       <Wrapper>

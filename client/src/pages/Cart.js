@@ -210,7 +210,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map((product) => (
-              <Product>
+              <Product key={product._id}>
                 <ProductDetail>
                   <Link to={`/product/${product._id}`}>
                     <Image src={product.image} />
