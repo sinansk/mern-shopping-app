@@ -8,9 +8,8 @@ import { mobile } from "../responsive";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import {addProduct} from "../redux/cartRedux";
-import {useDispatch} from "react-redux";
-
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   width: "100vw";
@@ -26,7 +25,7 @@ const ImgContainer = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 90vh;
-  ${'' /* object-fit: cover; */}
+  ${"" /* object-fit: cover; */}
   ${mobile({ height: "40vh" })}
 `;
 const InfoContainer = styled.div`
@@ -64,6 +63,7 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
+  border: 0.5px solid black;
   margin: 0 5px;
   cursor: pointer;
 `;
@@ -115,13 +115,13 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState(product.size ? product.size[0] : "");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
-        setProduct(res.data);  
+        setProduct(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -130,28 +130,28 @@ const Product = () => {
   }, [id]);
 
   const handleQuantity = (type) => {
-      if (type === "dec") {
-          quantity > 1 && setQuantity(quantity - 1);  
-      } else {
-        setQuantity(quantity + 1) ;
-      }
-  }
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
   useEffect(() => {
-      console.log(color, size)
-  }, [color, size])
+    console.log(color, size);
+  }, [color, size]);
 
   useEffect(() => {
     if (product.size) {
-      setSize(product.size[0])
-      setColor(product.color[0])
+      setSize(product.size[0]);
+      setColor(product.color[0]);
     } else {
-      return
+      return;
     }
-  }, [product])
+  }, [product]);
 
-const handleClick = () => {
-    dispatch(addProduct({...product, quantity, color, size }))
-};
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
   return (
     <Container>
       <Navbar />
@@ -181,9 +181,15 @@ const handleClick = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <RemoveIcon style={{ cursor: "pointer" }} onClick={() => handleQuantity("dec")}/>
+              <RemoveIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("dec")}
+              />
               <Amount>{quantity}</Amount>
-              <AddIcon style={{ cursor: "pointer" }} onClick={() => handleQuantity("inc")}/>
+              <AddIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("inc")}
+              />
             </AmountContainer>
             <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>

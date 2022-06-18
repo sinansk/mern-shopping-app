@@ -6,6 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -94,15 +95,46 @@ function Footer() {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Men Fashion</ListItem>
-          <ListItem>Women Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
-          <ListItem>My Account</ListItem>
-          <ListItem>Order Tracking</ListItem>
-          <ListItem>Whislist</ListItem>
-          <ListItem>Terms</ListItem>
+          <ListItem>
+            <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
+              Home
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to="/cart"
+            >
+              Cart
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to="/products/men"
+            >
+              Men Fashion
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to="/products/women"
+            >
+              Women Fashion
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              style={{ textDecoration: "none", color: "inherit" }}
+              to="/products/shoes"
+            >
+              Shoes
+            </Link>
+          </ListItem>
+          {/* <ListItem>Order Tracking</ListItem> */}
+          {/* <ListItem>Whislist</ListItem>
+          <ListItem>Terms</ListItem> */}
         </List>
       </Center>
       <Right>

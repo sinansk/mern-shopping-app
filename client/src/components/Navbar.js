@@ -30,22 +30,22 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `;
-const Language = styled.div`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display: "none" })}
-`;
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-  ${mobile({ width: "50px", display: "none" })};
-`;
-const Input = styled.input`
-  border: none;
-`;
+// const Language = styled.div`
+//   font-size: 14px;
+//   cursor: pointer;
+//   ${mobile({ display: "none" })}
+// `;
+// const SearchContainer = styled.div`
+//   border: 0.5px solid lightgray;
+//   display: flex;
+//   align-items: center;
+//   margin-left: 25px;
+//   padding: 5px;
+//   ${mobile({ width: "50px", display: "none" })};
+// `;
+// const Input = styled.input`
+//   border: none;
+// `;
 const Center = styled.div`
   flex: 1;
   text-align: center;
@@ -113,15 +113,21 @@ const Navbar = () => {
           </SearchContainer> */}
         </Left>
         <Center>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Logo>ShopMania</Logo>
+          <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
+            <Logo style={{ textDecoration: "none" }}>ShopMania</Logo>
           </Link>
         </Center>
         <Right>
-          <Link to={user ? "/" : "/register"}>
+          <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={user ? "/" : "/register"}
+          >
             <MenuItem>{user ? user.username : "REGISTER"}</MenuItem>
           </Link>
-          <Link to={user ? "/" : "/login"}>
+          <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={user ? "/" : "/login"}
+          >
             <MenuItem>
               {user ? <MenuItem onClick={logOut}>LOG OUT</MenuItem> : `SIGN IN`}
             </MenuItem>

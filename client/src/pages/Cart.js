@@ -14,10 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { emptyCart, decreaseCart, increaseCart } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
-const Container = styled.div`
-  width: 100%;
-  overflow: hidden;
-`;
+const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
   ${mobile({ padding: "20px" })}
