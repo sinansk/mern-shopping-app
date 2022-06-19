@@ -42,7 +42,6 @@ const Button = styled.button`
 
 const Success = () => {
   const location = useLocation();
-  //in Cart.jsx I sent data and cart. Please check that page for the changes.(in video it's only data)
   const data = location.state.data;
   console.log(data);
   const cart = useSelector((state) => state.cart);
@@ -52,7 +51,6 @@ const Success = () => {
   const userId = useSelector((state) => state.user.currentUser._id);
   console.log(userId);
   const [orderId, setOrderId] = useState(null);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const createOrder = async () => {
@@ -77,7 +75,7 @@ const Success = () => {
     } else {
       console.log("no data");
     }
-  }, [cart, data, currentUser, dispatch]);
+  }, [cart, data, currentUser, userId]);
 
   return (
     <Container>
