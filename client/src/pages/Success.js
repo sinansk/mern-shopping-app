@@ -50,6 +50,7 @@ const Success = () => {
   console.log(currentUser);
   const userId = useSelector((state) => state.user.currentUser._id);
   console.log(userId);
+
   const [orderId, setOrderId] = useState(null);
 
   useEffect(() => {

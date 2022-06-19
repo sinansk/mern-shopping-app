@@ -73,7 +73,7 @@ function Footer() {
   return (
     <Container>
       <Left>
-        <Logo>ShopMania</Logo>
+        <Logo>myFavShop</Logo>
         <Description>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever

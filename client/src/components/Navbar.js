@@ -114,7 +114,7 @@ const Navbar = () => {
         </Left>
         <Center>
           <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
-            <Logo style={{ textDecoration: "none" }}>ShopMania</Logo>
+            <Logo style={{ textDecoration: "none" }}>myFavShop</Logo>
           </Link>
         </Center>
         <Right>
