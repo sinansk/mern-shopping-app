@@ -158,7 +158,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const onToken = (token) => {
     setStripeToken(token);
-    console.log(stripeToken);
   };
   const dispatch = useDispatch();
 
@@ -169,15 +168,16 @@ const Cart = () => {
           tokenId: stripeToken.id,
           amount: 500,
         });
+        console.log(res);
 
         navigate("/success", { state: { data: res.data } });
       } catch {}
     };
     if (stripeToken && cart.products.length > 0) {
       makeRequest();
+      console.log(stripeToken);
     }
   }, [stripeToken, cart, navigate]);
-  console.log(stripeToken);
 
   const empty = () => {
     dispatch(emptyCart({}));
@@ -283,7 +283,7 @@ const Cart = () => {
               <SummaryItemPrice>$ {cart.total} </SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="ShopMania"
+              name="myFavShop"
               image="https://i.imgur.com/nqj549k.jpg"
               billingAddress
               shippingAddress

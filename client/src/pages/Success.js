@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-import { userRequest } from "../requestMethods";
+// import { userRequest } from "../requestMethods";
 import { Link } from "react-router-dom";
 import { emptyCart } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import axios from "axios";
 
 const Container = styled.div`
   font-size: 22px;
@@ -41,23 +41,29 @@ const Button = styled.button`
 `;
 
 const Success = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const data = location.state.data;
   console.log(data);
   const cart = useSelector((state) => state.cart);
   console.log(cart);
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user.currentUser);
   console.log(currentUser);
-  const userId = useSelector((state) => state.user.currentUser._id);
-  console.log(userId);
-
+  const TOKEN = currentUser.accessToken;
   const [orderId, setOrderId] = useState(null);
 
+  //I cant use userRequest method from requestMethods file, bc there is smthng wrong with userRedux.
+  //It is giving undefined on first load. If I refresh it is working fine.
+  //Below is temporary solition to  problem (I cant making order prequest to server/ bearer undefined).
+  const userRequest = axios.create({
+    baseURL: "https://my-fav-shop-app.herokuapp.com/backend/",
+    headers: { token: `Bearer ${TOKEN}` },
+  });
   useEffect(() => {
     const createOrder = async () => {
       try {
         const res = await userRequest.post("/orders", {
-          userId: userId,
+          userId: currentUser._id,
           products: cart.products.map((item) => ({
             productId: item._id,
             quantity: item.quantity,
@@ -67,16 +73,17 @@ const Success = () => {
         });
         console.log(res);
         setOrderId(res.data._id);
+        dispatch(emptyCart());
       } catch (err) {
         console.log(err);
       }
     };
-    if (data) {
+    if (data && cart.products.length > 0) {
       createOrder();
     } else {
       console.log("no data");
     }
-  }, [cart, data, currentUser, userId]);
+  }, [cart, data, currentUser]);
 
   return (
     <Container>
