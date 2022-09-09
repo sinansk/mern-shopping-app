@@ -8,7 +8,7 @@ It is a MERN stack e-commerce application. You can register, login and order som
  
  ## Run project on local
 
-##### You need to run the commands below both in api and front directory. Api documentation is available on localhost:3001/docs
+##### You need to run the commands below both in api and front directory.
 
 ##### `npm i`
 
@@ -26,7 +26,6 @@ It is a MERN stack e-commerce application. You can register, login and order som
 - `React Router`
 - `Stripe`
 
-\
  I deployed backend on Heroku, and frontend on Netlify.
 
 [![Shopping App React](https://raw.githubusercontent.com/sinansk/personal-portfolio/main/src/images/shopping-app.JPG)](https://my-fav-shop.netlify.app/)
