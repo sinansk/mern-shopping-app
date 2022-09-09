@@ -28,4 +28,9 @@ It is a MERN stack e-commerce application. You can register, login and order som
 
  I deployed backend on Heroku, and frontend on Netlify.
 
-[![Shopping App React](https://raw.githubusercontent.com/sinansk/personal-portfolio/main/src/images/shopping-app.JPG)](https://my-fav-shop.netlify.app/)
+[![Shopping App React](https://github.com/sinansk/mern-shopping-app/blob/main/client/public/shopping-app.JPG)](https://my-fav-shop.netlify.app/)
+[![Shopping App React](https://github.com/sinansk/mern-shopping-app/blob/main/client/public/mern-shopping.PNG)](https://my-fav-shop.netlify.app/)
+[![Shopping App React](https://github.com/sinansk/mern-shopping-app/blob/main/client/public/mern-shopping-4.PNG)](https://my-fav-shop.netlify.app/)
+[![Shopping App React](https://github.com/sinansk/mern-shopping-app/blob/main/client/public/mern-shopping-3.PNG)](https://my-fav-shop.netlify.app/)
+[![Shopping App React](https://github.com/sinansk/mern-shopping-app/blob/main/client/public/mern-shopping-5.PNG)](https://my-fav-shop.netlify.app/)
+[![Shopping App React](https://github.com/sinansk/mern-shopping-app/blob/main/client/public/mern-shopping-6.PNG)](https://my-fav-shop.netlify.app/)
