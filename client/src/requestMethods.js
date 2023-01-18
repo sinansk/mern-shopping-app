@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://my-fav-shop-app.herokuapp.com/backend/";
+const BASE_URL = "https://myfavshop.onrender.com/backend/";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
