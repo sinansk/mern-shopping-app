@@ -3,7 +3,9 @@
 [ON LIVE](https://my-fav-shop.netlify.app/)
 
 It is a MERN stack e-commerce application. You can register, login and order something with Stripe payment method. 
-\
+  
+Login Name: guest  
+Login PassWord: 0  
  **YOU CAN CHECKOUT WITH THE CARD NUMBER AS: 4242 4242 4242 4242, VALID DATE: ANY FUTURE DATE AND CVC: 123.**  
  
  ## Run project on local
